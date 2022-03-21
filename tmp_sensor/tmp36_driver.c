@@ -8,13 +8,20 @@
 #include "tmp36_driver.h"
 
 
-//Think about using global variable
-volatile float temp_reading;
+static void (*call_back)(float);
+
+void set_callback(void (*cb)(float)) {
+	call_back=cb;
+}
+
 
 ISR(ADC_vect) {
-
-  temp_reading = ADCH * (5000/1024); //instead of 10 bit , you're using 8 bit
-  //check the value.
+  uint16_t t_read = ADCH;
+  t_read <<= 2; //Shifting two symbols to the left, adding zeros. Getting 
+  //10 bit value used to calculate actual degrees below.
+  float temp_in_c = ((t_read*(5000/1024))-500)/10; 
+  call_back(temp_in_c);
+  
 }
 
 void init_tmp() {

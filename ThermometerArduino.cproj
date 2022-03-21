@@ -157,9 +157,6 @@
     <Compile Include="leds\led_driver.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="led_bar\led_bar.c">
-      <SubType>compile</SubType>
-    </Compile>
     <Compile Include="led_bar\led_bar.h">
       <SubType>compile</SubType>
     </Compile>

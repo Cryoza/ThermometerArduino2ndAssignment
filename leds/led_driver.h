@@ -11,6 +11,7 @@
 
 void init_leds();
 int set_led(uint8_t led_no, uint8_t state); //led_no 1-8, state 0--1
+void set_bar(uint8_t leds);
 
 
 

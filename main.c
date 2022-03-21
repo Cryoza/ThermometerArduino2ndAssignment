@@ -7,20 +7,29 @@
 
 #include <avr/io.h>
 #include <util/delay.h>
+#include <avr/interrupt.h>
 
+#include "leds/led_driver.h"
+#include "tmp_sensor/tmp36_driver.h"
+
+void set_led_bar(float temp) {
+	//Substract the original starting temperature to make it easier, 
+	//to pass the parameter for set_bar() function. 
+	//18-25 / - 8 LEDS. 
+	int bars_to_set = (int) temp - 18;
+	set_bar(bars_to_set);
+}
 
 int main(void)
 {
+	init_leds();
 	init_tmp();
-    /* Replace with your application code */
-	DDRA = 0xff;
-	PORTA = 0b11111111;
+	set_callback(set_led_bar);
+
+	sei(); 
+	
     while (1) 
     {
-		PORTA = 0b00000000;
-		_delay_ms(300);
-		PORTA = 0b11111111;
-		_delay_ms(300);
     }
 }
 

@@ -41,7 +41,6 @@ SUBDIRS :=  \
 # Add inputs and outputs from these tool invocations to the build variables 
 C_SRCS +=  \
 ../leds/led_driver.c \
-../led_bar/led_bar.c \
 ../main.c \
 ../tmp_sensor/tmp36_driver.c
 
@@ -54,25 +53,21 @@ ASM_SRCS +=
 
 OBJS +=  \
 leds/led_driver.o \
-led_bar/led_bar.o \
 main.o \
 tmp_sensor/tmp36_driver.o
 
 OBJS_AS_ARGS +=  \
 leds/led_driver.o \
-led_bar/led_bar.o \
 main.o \
 tmp_sensor/tmp36_driver.o
 
 C_DEPS +=  \
 leds/led_driver.d \
-led_bar/led_bar.d \
 main.d \
 tmp_sensor/tmp36_driver.d
 
 C_DEPS_AS_ARGS +=  \
 leds/led_driver.d \
-led_bar/led_bar.d \
 main.d \
 tmp_sensor/tmp36_driver.d
 
@@ -91,13 +86,6 @@ LINKER_SCRIPT_DEP+=
 
 # AVR32/GNU C Compiler
 leds/led_driver.o: ../leds/led_driver.c
-	@echo Building file: $<
-	@echo Invoking: AVR/GNU C Compiler : 5.4.0
-	$(QUOTE)C:\Program Files (x86)\Atmel\Studio\7.0\toolchain\avr8\avr8-gnu-toolchain\bin\avr-gcc.exe$(QUOTE)  -x c -funsigned-char -funsigned-bitfields -DDEBUG -DF_CPU=16000000UL  -I"C:\Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.6.364\include"  -Og -ffunction-sections -fdata-sections -fpack-struct -fshort-enums -mrelax -g2 -Wall -mmcu=atmega2560 -B "C:\Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.6.364\gcc\dev\atmega2560" -c -std=gnu99 -MD -MP -MF "$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -MT"$(@:%.o=%.o)"   -o "$@" "$<" 
-	@echo Finished building: $<
-	
-
-led_bar/led_bar.o: ../led_bar/led_bar.c
 	@echo Building file: $<
 	@echo Invoking: AVR/GNU C Compiler : 5.4.0
 	$(QUOTE)C:\Program Files (x86)\Atmel\Studio\7.0\toolchain\avr8\avr8-gnu-toolchain\bin\avr-gcc.exe$(QUOTE)  -x c -funsigned-char -funsigned-bitfields -DDEBUG -DF_CPU=16000000UL  -I"C:\Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.6.364\include"  -Og -ffunction-sections -fdata-sections -fpack-struct -fshort-enums -mrelax -g2 -Wall -mmcu=atmega2560 -B "C:\Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.6.364\gcc\dev\atmega2560" -c -std=gnu99 -MD -MP -MF "$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -MT"$(@:%.o=%.o)"   -o "$@" "$<" 

@@ -27,3 +27,17 @@ int set_led(uint8_t led_no, uint8_t state) {
 		return 0;
 	}
 }
+
+void set_bar(uint8_t leds) {
+	PORTA = 0xFF; //Clear leds
+	if (leds < 0 || leds > 8) {
+       PORTA |= _BV(PA7) | _BV(PA0); //Error code.
+	}
+	else {
+		for (uint8_t uwu=1; uwu <= leds; uwu++ ) {
+			set_led(uwu,1);
+		}
+		
+	}
+	
+}
