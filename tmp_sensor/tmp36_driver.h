@@ -10,7 +10,7 @@
 #define TMP36_DRIVER_H_
 
 void init_tmp();
-//void get_temp(); ISR already gives that
+void set_callback(void (*cb)(float));
 
 
 

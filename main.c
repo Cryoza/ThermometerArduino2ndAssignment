@@ -16,7 +16,7 @@ void set_led_bar(float temp) {
 	//Substract the original starting temperature to make it easier, 
 	//to pass the parameter for set_bar() function. 
 	//18-25 / - 8 LEDS. 
-	int bars_to_set = (int) temp - 18;
+	uint8_t bars_to_set = (uint8_t) temp - 18;
 	set_bar(bars_to_set);
 }
 

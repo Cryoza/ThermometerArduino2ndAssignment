@@ -5,23 +5,27 @@
  *  Author: mmate
  */ 
 #include <avr/io.h>
+#include <avr/interrupt.h>
 #include "tmp36_driver.h"
 
 
 static void (*call_back)(float);
 
 void set_callback(void (*cb)(float)) {
-	call_back=cb;
+	//Setting the callback.
+	call_back = cb;
 }
 
 
 ISR(ADC_vect) {
   uint16_t t_read = ADCH;
-  t_read <<= 2; //Shifting two symbols to the left, adding zeros. Getting 
+  //t_read |= (ADCH << 8);
+  //t_read >>= 6;
+  //t_read <<= 2; //Shifting two symbols to the left, adding zeros. Getting 
   //10 bit value used to calculate actual degrees below.
-  float temp_in_c = ((t_read*(5000/1024))-500)/10; 
+  double voltage = t_read * (5.0 / 1023.0);
+  double temp_in_c = (voltage - 0.5) * 100.0;
   call_back(temp_in_c);
-  
 }
 
 void init_tmp() {
@@ -54,21 +58,19 @@ void init_tmp() {
 	//ADEN - Turn on Analog Digital Converter
 	ADCSRA |= _BV(ADEN);
 	//ADSC - Starts the conversion of the input from ADC
-	ADCSRA |= _BV(ADSC);
+	// ADCSRB |= _BV(ADSC);
 	//.Facial recognition setup
-	OCR1B = 15625;
+	OCR1A = 15625;
+	OCR1B = 10;
 	//Selecting a clock source prescaler, in 
 	//that case it is clk/1024, because 1 
 	//second is tiny enough to use with 
 	//this prescaler
-	TCCR1A |= (_BV(COM1B1) | _BV(COM1B0));
-	//Clock mode (CTC)
-	TCCR1A |= _BV(WGM12);
+	TCCR1B |= _BV(CS12) | _BV(CS10);
+	TCCR1B |= _BV(WGM12); // CTC
 	//Enable Timer Interrupt Mask
 	TIMSK1 |= _BV(OCIE1B);
 }
 
-
-
-
-
+// clear the interrupt flag in the registry
+EMPTY_INTERRUPT(TIMER1_COMPB_vect);

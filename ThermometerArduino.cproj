@@ -68,6 +68,17 @@
       </ToolNumber>
       <ToolName xmlns="">Simulator</ToolName>
     </com_atmel_avrdbg_tool_simulator>
+    <custom>
+      <ToolOptions xmlns="">
+        <InterfaceProperties>
+        </InterfaceProperties>
+        <InterfaceName>JTAG</InterfaceName>
+      </ToolOptions>
+      <ToolType xmlns="">custom</ToolType>
+      <ToolNumber xmlns="">
+      </ToolNumber>
+      <ToolName xmlns="">Custom Programming Tool</ToolName>
+    </custom>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
     <ToolchainSettings>
@@ -155,9 +166,6 @@
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="leds\led_driver.h">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="led_bar\led_bar.h">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="main.c">
